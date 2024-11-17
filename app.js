@@ -7,19 +7,20 @@ app.use(express.json());
 app.get('/curriculo', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM curriculo');
-        res.json(result.rows[0]);
+        console.log(result)
+        res.json(result.rows);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
 app.post('/curriculo', async (req, res) => {
-    const { name, email, phone, summary, skills, experience, education } = req.body;
+    const { nome, number, phone_number, id, cep, email, complement, district, linkedin, nationality } = req.body;
     try {
         const result = await pool.query(
-            `INSERT INTO resume (name, email, phone, summary, skills, experience, education) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [name, email, phone, summary, skills, experience, education]
+            `INSERT INTO curriculo (nome, number, phone_number, id, cep, email, complement, district, linkedin, nationality) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+            [nome, number, phone_number, id, cep, email, complement, district, linkedin, nationality]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
