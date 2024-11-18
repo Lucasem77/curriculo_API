@@ -31,8 +31,9 @@ app.post('/curriculo', async (req, res) => {
 
 
 
+
 app.put('/curriculo/:id', async (req, res) => {
-    const { id } = req.params;  
+    const { id } = req.params; 
     const { nome, number, phone_number, cep, email, complement, district, linkedin, nationality } = req.body;
     
     try {
@@ -68,6 +69,7 @@ app.delete('/curriculo/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
